@@ -43,6 +43,13 @@ $routes->group('categorias', function ($routes) {
     $routes->delete('delete/(:any)', 'Categorias::delete/$1');
 });
 
+$routes->group('productos' ,function($routes){
+	$routes->get('/', 'Productos::index');
+	$routes->get('create', 'Productos::create');
+	$routes->get('edit', 'Productos::edit');
+
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
