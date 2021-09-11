@@ -50,4 +50,40 @@ class ProductosModel extends Model
         $this->where('estado', 1);
         return  $this->first();
     }
+
+    public function getCodigo($codigo_barra)
+    {
+        $datos = $this->where('codigo_barra', $codigo_barra)->where('estado', 1)->first();
+        //Creamos arreglos para diversas respuestas que podemos obtener del json.
+        $resultado['existe'] = false;
+        $resultado['datos'] = '';
+        $resultado['error'] = '';
+
+        if (!$datos) {
+            $resultado['error'] = 'este dato no existe';
+            $resultado['existe'] = false;
+        } else {
+            $resultado['datos'] = $datos;
+            $resultado['existe'] = true;
+        }
+        echo json_encode($resultado);
+    }
+
+    public function getProducto($id_producto)
+    {
+        return $this->select('*')->where('id', $id_producto)->first();
+    }
+
+    public function actualizarStock($id_producto, $stock)
+    {
+        $this->set('stock_minimo', $stock);
+        $this->where('id', $id_producto);
+        return    $this->update();
+    }
+    public function minimos($id_producto)
+    {
+        $this->select('stock_minimo');
+        $this->where('id', $id_producto);
+        return $this->get()->getRow();
+    }
 }
