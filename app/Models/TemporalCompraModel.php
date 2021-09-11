@@ -39,4 +39,28 @@ class TemporalCompraModel extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
+
+    public function buscarProductoT($id_producto, $id_compra)
+    {
+        $this->where('producto_id', $id_producto);
+        $this->where('folio', $id_compra);
+        $datos = $this->get()->getRow();
+        return $datos;
+    }
+
+    public function subtotal($id_producto)
+    {
+        $this->select('subtotal');
+        $this->where('producto_id', $id_producto);
+        $subtotal = $this->get()->getRow();
+        return $subtotal;
+    }
+    public function actualizarCompra($id_producto, $id_compra, $cantidad, $subtotal)
+    {
+        $this->set('cantidad', $cantidad);
+        $this->set('subtotal', $subtotal);
+        $this->where('producto_id', $id_producto);
+        $this->where('folio', $id_compra);
+        return $this->update();
+    }
 }
