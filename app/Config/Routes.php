@@ -50,6 +50,13 @@ $routes->group('productos' ,function($routes){
 
 });
 
+$routes->group('compras' ,function($routes){
+	$routes->get('/', 'Compras::index');
+	$routes->get('create', 'Compras::create');
+	$routes->get('buscarCodigo/(:any)', 'TemporalCompra::buscarCodigo/$1');
+	$routes->get('temporalInsertar/(:any)', 'TemporalCompra::temporalCompra/$1');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
