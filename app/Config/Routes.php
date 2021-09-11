@@ -32,6 +32,17 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Categorias::index');
+
+$routes->group('categorias', function ($routes) {
+
+    $routes->get('/', 'Categorias::index');
+    $routes->get('create', 'Categorias::create');
+    $routes->post('store', 'Categorias::store');
+    $routes->get('edit/(:any)', 'Categorias::edit/$1');
+    $routes->post('update', 'Categorias::update');
+    $routes->delete('delete/(:any)', 'Categorias::delete/$1');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
